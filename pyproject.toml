@@ -1,0 +1,10 @@
+[project]
+name = "ablemu"
+version = "0.0.1"
+description = "Qualcomm ABL Emulator"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pefile>=2024.8.26",
+    "unicorn>=2.1.4",
+]
