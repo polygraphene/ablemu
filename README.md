@@ -32,11 +32,37 @@ pip install -r requirements.txt
 
 ## Usage
 
-Place your `abl.elf` (or `abl.img`, `LinuxLoader.efi`) in the project root or provide the path. Optionally place other partitions like "boot", "vbmeta" or "devinfo" to emulate boot sequence and AVB verification.
+Place your `abl.elf` (or `abl.img`, `LinuxLoader.efi`) in the project root or provide the path. Optionally place other partitions like "boot", "vbmeta" or "devinfo" to emulate boot sequence and AVB verification. See `partitions.py` for partition information.
 
 ```bash
 # Run the emulator
-python emu.py abl.elf
+$ python emu.py abl.elf
+[*] Trace mode: OFF  (set EMU_TRACE=1 to enable)
+[PE] ImageBase        = 0x0000000000000000
+[PE] SizeOfImage      = 0xA2000
+[PE] AddressOfEntryPt = 0x1000
+[PE] Number of sections: 3
+  [.text   ]  VA=0x0000000000001000  VSize=0x80000  RawSize=0x80000
+  [.data   ]  VA=0x0000000000081000  VSize=0x20000  RawSize=0x20000
+  [.reloc  ]  VA=0x00000000000A1000  VSize=0x1000  RawSize=0x1000
+[PE] Entry point (abs) = 0x0000000000001000
+[INIT] GraphicsOutputProtocol at 0xDE020110, Mode at 0xDE020210, Info at 0xDE020310
+[INIT] SimpleTextInputProtocol at 0xDE020450
+[INIT] SimpleTextOutputProtocol at 0xDE0204B0, Mode at 0xDE020530
+...
+```
+
+```
+$ python emu.py abl.elf | grep ReportStatusCode
+[ReportStatusCode] Loader Build Info: Jan 11 2026 06:25:40
+[ReportStatusCode] Device Magic does not match
+[ReportStatusCode] GetActiveSlot: First boot: set default slot _a
+[ReportStatusCode] Total DDR Size: 0xe000000
+[ReportStatusCode] KeyPress:0, BootReason:0
+[ReportStatusCode] Fastboot=0, Recovery:0
+[ReportStatusCode] SilentBoot Mode:11
+[ReportStatusCode] GetVmData: ScmSipSysCall returned NULL
+[ReportStatusCode] VM Hyp calls not present
 ```
 
 ```
